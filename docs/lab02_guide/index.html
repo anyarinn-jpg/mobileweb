@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <title>KKU Campus Guide - มหาวิทยาลัยขอนแก่น</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS ภายในไฟล์ ใช้ Box Model + Media Query -->
+    <style>
+        * {
+            box-sizing: border-box;
+            /* ใช้ Box Model */
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2B2B2B;
+            background: #FFF7F3;
+        }
+
+        header {
+            background: linear-gradient(135deg, #B35030, #E89A6F);
+            color: #fff;
+            padding: 15px 5vw 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .student-info {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .student-info span {
+            display: inline-block;
+            margin-right: 12px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 10px 0 5px;
+        }
+
+        #logoCanvas {
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.9);
+            background: rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+        }
+
+        .title-group h1 {
+            font-size: 1.7rem;
+            letter-spacing: 0.04em;
+        }
+
+        .title-group p {
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        nav {
+            margin-top: 6px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding: 8px 0 4px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 0.95rem;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: background 0.25s, transform 0.15s;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 5vw 40px;
+        }
+
+        .intro {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin-bottom: 24px;
+            border: 1px solid #F2D2C1;
+            /* Box Model: border + padding + margin */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .intro h2 {
+            font-size: 1.4rem;
+            color: #B35030;
+            margin-bottom: 4px;
+        }
+
+        .intro p {
+            font-size: 0.96rem;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 3fr 1.2fr;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .places {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .place-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 18px 18px 14px;
+            border: 1px solid #F0D2C0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+            display: grid;
+            grid-template-columns: 1.4fr 1.6fr;
+            gap: 14px;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .place-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .place-text h3 {
+            font-size: 1.18rem;
+            color: #B35030;
+            margin-bottom: 6px;
+        }
+
+        .place-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: #FFE6D8;
+            color: #B35030;
+            margin-bottom: 8px;
+        }
+
+        .place-text p {
+            font-size: 0.92rem;
+            margin-bottom: 10px;
+        }
+
+        .place-details {
+            font-size: 0.87rem;
+            color: #6B4A39;
+        }
+
+        .place-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        figure {
+            margin: 0;
+        }
+
+        .place-gallery img {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+            object-fit: cover;
+            aspect-ratio: 4 / 3;
+            border: 2px solid #F5E3D8;
+        }
+
+        .place-gallery figcaption {
+            font-size: 0.75rem;
+            color: #7A5C4B;
+            margin-top: 2px;
+            text-align: center;
+        }
+
+        aside.tips {
+            background: #FFF2E7;
+            border-radius: 16px;
+            padding: 16px 16px 14px;
+            border: 1px dashed #F0B28A;
+            position: sticky;
+            top: 120px;
+        }
+
+        aside.tips h2 {
+            font-size: 1.05rem;
+            color: #B35030;
+            margin-bottom: 6px;
+        }
+
+        aside.tips ul {
+            list-style: disc inside;
+            font-size: 0.9rem;
+        }
+
+        aside.tips li+li {
+            margin-top: 4px;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.85rem;
+            padding: 16px 5vw 20px;
+            background: #F3E0D2;
+            color: #5D3D2A;
+            border-top: 1px solid #E5C1A4;
+        }
+
+        footer span {
+            font-weight: 600;
+        }
+
+        /* Media Query ทำให้ Responsive */
+        @media (max-width: 960px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            aside.tips {
+                position: static;
+                margin-bottom: 10px;
+            }
+
+            .place-card {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .brand {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .title-group h1 {
+                font-size: 1.4rem;
+            }
+
+            nav ul {
+                gap: 10px;
+            }
+
+            nav a {
+                padding: 4px 10px;
+                font-size: 0.85rem;
+            }
+
+            .place-gallery {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 540px) {
+            header {
+                padding-inline: 4vw;
+            }
+
+            main {
+                padding-inline: 4vw;
+            }
+
+            .brand {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            #logoCanvas {
+                width: 90px;
+                height: 90px;
+            }
+
+            .place-card {
+                padding: 14px;
+            }
+
+            .intro {
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="brand">
+            <!-- Canvas Logo + Animation -->
+            <canvas id="logoCanvas" width="120" height="120">
+                Browser ของคุณไม่รองรับ Canvas
+            </canvas>
+            <div class="title-group">
+                <h1>KKU Campus Guide</h1>
+                <p>สำรวจมุมสวย ๆ ภายในมหาวิทยาลัยขอนแก่น</p>
+            </div>
+        </div>
+        <nav aria-label="ลิงก์ไปยังสถานที่ต่าง ๆ">
+            <ul>
+                <li><a href="#bueng">บึงสีฐาน</a></li>
+                <li><a href="#library">หอสมุดกลาง</a></li>
+                <li><a href="#jubilee">ศูนย์ประชุมกาญจนาภิเษก</a></li>
+                <li><a href="#complex">คอมเพล็กซ์</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="intro" aria-labelledby="intro-title">
+            <h2 id="intro-title">ยินดีต้อนรับสู่ KKU Campus Guide</h2>
+            <p>
+                หน้าเว็บนี้รวบรวมสถานที่ยอดฮิตภายในมหาวิทยาลัยขอนแก่น
+                เหมาะสำหรับนิสิตใหม่ นักศึกษาเก่า และผู้มาเยี่ยมชม
+                ทั้งจุดพักผ่อน ถ่ายรูป อ่านหนังสือ และจัดกิจกรรมต่าง ๆ
+                เลื่อนลงไปด้านล่างเพื่อทำความรู้จักกับบึงสีฐาน หอสมุดกลาง
+                ศูนย์ประชุมกาญจนาภิเษก และอาคารคอมเพล็กซ์กันเลย!
+            </p>
+        </section>
+
+        <div class="layout">
+            <section class="places" aria-label="สถานที่แนะนำภายในมหาวิทยาลัยขอนแก่น">
+                <!-- 1. บึงสีฐาน -->
+                <article class="place-card" id="bueng">
+                    <div class="place-text">
+                        <span class="place-tag">จุดชมวิว &amp; พักผ่อน</span>
+                        <h3>บึงสีฐาน</h3>
+                        <p>
+                            บึงสีฐานเป็นพื้นที่พักผ่อนยอดนิยมของชาว มข.
+                            บรรยากาศร่มรื่น ลมเย็น มีทางเดินและที่นั่งเล่นรอบบึง
+                            ตอนเย็นจะมีนักศึกษาและคนในชุมชนมาออกกำลังกาย นั่งคุย
+                            หรือนั่งชมพระอาทิตย์ตกดินสวย ๆ
+                        </p>
+                        <p class="place-details">
+                            ไฮไลต์: พักผ่อนริมบึง วิ่งออกกำลังกาย ถ่ายรูปพระอาทิตย์ตก
+                            และปั่นจักรยานรอบบึง
+                        </p>
+                    </div>
+                    <div class="place-gallery">
+                        <figure>
+                            <img src="img/1-1.webp" alt="วิวบึงสีฐานยามเย็น">
+                            <figcaption>วิวพระอาทิตย์ตกเหนือบึงสีฐาน</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/e250784c3f6d4315883998a9586f4175~tplv-sdweummd6v-text-logo-v1_QG1vbW9vbWcw_q75.jpeg"
+                                alt="นักศึกษานั่งเล่นรอบบึงสีฐาน">
+                            <figcaption>จุดนั่งเล่นและทางเดินรอบบึง</figcaption>
+                        </figure>
+                    </div>
+                </article>
+
+                <!-- 2. หอสมุดกลาง -->
+                <article class="place-card" id="library">
+                    <div class="place-text">
+                        <span class="place-tag">แหล่งความรู้ &amp; พื้นที่อ่านหนังสือ</span>
+                        <h3>หอสมุดกลาง มข.</h3>
+                        <p>
+                            หอสมุดกลางเป็นศูนย์รวมหนังสือและฐานข้อมูลวิชาการของมหาวิทยาลัย
+                            ภายในมีทั้งโซนอ่านหนังสือเงียบ โซนทำงานกลุ่ม และมุมพักผ่อน
+                            เหมาะสำหรับอ่านหนังสือสอบ ทำรายงาน หรือค้นคว้าข้อมูลเพิ่มเติม
+                        </p>
+                        <p class="place-details">
+                            ไฮไลต์: ห้องอ่านหนังสือ 24 ชั่วโมง ช่วงสอบ, มุมอ่านวิวต้นไม้
+                            และบริการยืม-คืนหนังสือแบบ Self-service
+                        </p>
+                    </div>
+                    <div class="place-gallery">
+                        <figure>
+                            <img src="img/Library02-840x560-1.jpg" alt="ด้านหน้าหอสมุดกลางมหาวิทยาลัยขอนแก่น">
+                            <figcaption>ด้านหน้าหอสมุดกลาง มข.</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/2021-10-181634525565.png" alt="บรรยากาศภายในหอสมุดกลาง">
+                            <figcaption>โซนอ่านหนังสือและทำงานกลุ่ม</figcaption>
+                        </figure>
+                    </div>
+                </article>
+
+
+                <article class="place-card" id="jubilee">
+                    <div class="place-text">
+                        <span class="place-tag">ฮอลล์จัดประชุม &amp; งานใหญ่</span>
+                        <h3>ศูนย์ประชุมกาญจนาภิเษก</h3>
+                        <p>
+                            ศูนย์ประชุมกาญจนาภิเษกเป็นสถานที่จัดงานสำคัญของมหาวิทยาลัย
+                            เช่น งานปฐมนิเทศ งานประชุมวิชาการ รวมถึงงานแสดงดนตรีและนิทรรศการ
+                            ตัวอาคารมีดีไซน์โดดเด่นและมีลานกว้างด้านหน้า
+                        </p>
+                        <p class="place-details">
+                            ไฮไลต์: ใช้จัดงานพิธีใหญ่ งานรับปริญญาบางส่วน และงานนิทรรศการจากหลายคณะ
+                        </p>
+                    </div>
+                    <div class="place-gallery">
+                        <figure>
+                            <img src="img/2025-02-04_08-51-31_488661.png" alt="ศูนย์ประชุมกาญจนาภิเษกมุมมองด้านหน้า">
+                            <figcaption>ตัวอาคารศูนย์ประชุมกาญจนาภิเษก</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/2025-02-04_08-51-23_517256.jpg"
+                                alt="บรรยากาศการจัดงานที่ศูนย์ประชุมกาญจนาภิเษก">
+                            <figcaption>บรรยากาศงานประชุมและงานสำคัญ</figcaption>
+                        </figure>
+                    </div>
+                </article>
+
+                <article class="place-card" id="complex">
+                    <div class="place-text">
+                        <span class="place-tag">แหล่งรวมร้านอาหาร &amp; บริการ</span>
+                        <h3>อาคารคอมเพล็กซ์</h3>
+                        <p>
+                            คอมเพล็กซ์เป็นจุดศูนย์รวมร้านอาหาร ร้านกาแฟ ร้านถ่ายเอกสาร
+                            ธนาคาร และบริการต่าง ๆ ของนักศึกษา อยู่ไม่ไกลจากคณะต่าง ๆ
+                            ทำให้สะดวกต่อการใช้ชีวิตระหว่างเรียน
+                        </p>
+                        <p class="place-details">
+                            ไฮไลต์: ร้านอาหารหลากหลาย, คาเฟ่นั่งชิล, บริการธนาคารและร้านสะดวกซื้อ
+                        </p>
+                    </div>
+                    <div class="place-gallery">
+                        <figure>
+                            <img src="img/ศูนย์อาหารและบริการ-1-คอมเพล็กซ์-น.ส.จุฑารัตน์-สายสกุล-5-1024x768.jpg"
+                                alt="บรรยากาศด้านหน้าคอมเพล็กซ์">
+                            <figcaption>บรรยากาศหน้าคอมเพล็กซ์</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="img/Cozy-1024x768.jpg" alt="ภายในอาคารคอมเพล็กซ์มีร้านอาหารและบริการต่าง ๆ">
+                            <figcaption>โซนร้านอาหารและบริการภายในอาคาร</figcaption>
+                        </figure>
+                    </div>
+                </article>
+            </section>
+
+            <aside class="tips">
+                <h2>เคล็ดลับการเที่ยว มข. ให้สนุก</h2>
+                <ul>
+                    <li>ช่วงเย็นเป็นเวลาที่อากาศดี เหมาะกับการเดินเล่นรอบบึงสีฐาน</li>
+                    <li>เตรียมบัตรนักศึกษาไว้สำหรับใช้บริการในหอสมุดกลาง</li>
+                    <li>หากมีงานที่ศูนย์ประชุมกาญจนาภิเษก ควรมาก่อนเวลาเพื่อหาที่จอดรถ</li>
+                    <li>คอมเพล็กซ์เป็นจุดพักทานข้าวที่สะดวก ระหว่างเรียนหรือทำกิจกรรม</li>
+                </ul>
+            </aside>
+        </div>
+
+        <section style="margin-top:40px;">
+            <h2 style="color:#B35030;margin-bottom:10px;">📝 เพิ่มสถานที่ใหม่ที่คุณอยากแนะนำ</h2>
+            <form action="https://api.web3forms.com/submit" method="POST">
+
+                <input type="hidden" name="access_key" value="75ce7e49-6e48-49af-a9ec-8c278a69f689">
+
+                <label>ชื่อสถานที่</label>
+                <input type="text" id="name" name="place_name" required placeholder="เช่น ตลาดมอดินแดง."
+                    style="width:100%;padding:10px;border-radius:8px;border:1px solid #DEBDA6;margin:6px 0 12px;">
+
+                <label>รายละเอียดสถานที่</label>
+                <textarea id="detail" name="place_detail" required rows="3"
+                    placeholder="สถานที่นี้มีอะไรดี? บรรยากาศเป็นยังไง?"
+                    style="width:100%;padding:10px;border-radius:8px;border:1px solid #DEBDA6;margin:6px 0 12px;"></textarea>
+
+                <label>URL รูปภาพ</label>
+                <input type="url" id="img" name="image_url" required placeholder="https://example.com/photo.jpg"
+                    style="width:100%;padding:10px;border-radius:8px;border:1px solid #DEBDA6;margin:6px 0 14px;">
+
+                <button type="submit"
+                    style="background:#B35030;color:#fff;padding:10px 24px;border:none;border-radius:8px;font-size:1rem;cursor:pointer;">
+                    ➕ เพิ่มสถานที่
+                </button>
+            </form>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="student-info">
+
+            <span>รหัสนักศึกษา: 673380023-2</span>
+            <span>ชื่อ-สกุล:อัญรินทร์ นิธิโพธิพงศ์</span>
+        </div>
+        <span>KKU Campus Guide</span> – ตัวอย่างเว็บแนะนำสถานที่ภายในมหาวิทยาลัยขอนแก่น
+    </footer>
+
+
+    <script>
+        const canvas = document.getElementById("logoCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let angle = 0;
+        const TWO_PI = Math.PI * 2;
+
+        function drawLogo() {
+            const w = canvas.width;
+            const h = canvas.height;
+            const cx = w / 2;
+            const cy = h / 2;
+            const baseRadius = 45;
+
+            ctx.clearRect(0, 0, w, h);
+
+            // พื้นหลังวงกลมแบบไล่สี (Gradient)
+            const gradient = ctx.createRadialGradient(cx, cy, 10, cx, cy, baseRadius);
+            gradient.addColorStop(0, "#FFF7E6");
+            gradient.addColorStop(0.5, "#E89A6F");
+            gradient.addColorStop(1, "#B35030");
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(cx, cy, baseRadius, 0, TWO_PI);
+            ctx.fill();
+
+            // วงแหวนรอบนอก
+            ctx.strokeStyle = "rgba(255,255,255,0.9)";
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.arc(cx, cy, baseRadius - 4, 0, TWO_PI);
+            ctx.stroke();
+
+            // เส้นโค้งคล้ายวงโคจร
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(angle * 0.7); // หมุนวงโคจรเบา ๆ
+            ctx.strokeStyle = "rgba(255,255,255,0.7)";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.ellipse(0, 0, 28, 16, 0, 0, TWO_PI);
+            ctx.stroke();
+            ctx.restore();
+
+            // จุดกลมหมุนรอบ (ดวงดาว)
+            const orbitRadius = 30;
+            const dotX = cx + Math.cos(angle) * orbitRadius;
+            const dotY = cy + Math.sin(angle) * orbitRadius;
+            ctx.fillStyle = "#FFE07A";
+            ctx.beginPath();
+            ctx.arc(dotX, dotY, 5.5, 0, TWO_PI);
+            ctx.fill();
+
+            // ขีดเน้นด้านล่างคำว่า KKU
+            ctx.strokeStyle = "rgba(255,255,255,0.8)";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(cx - 18, cy + 12);
+            ctx.quadraticCurveTo(cx, cy + 18, cx + 18, cy + 12);
+            ctx.stroke();
+
+            // ข้อความ KKU ตรงกลาง
+            ctx.fillStyle = "#101010";
+            ctx.font = "bold 22px 'Segoe UI', sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText("KKU", cx, cy - 4);
+
+            // เพิ่มมุมหมุน
+            angle += 0.045;
+
+            requestAnimationFrame(drawLogo);
+        }
+
+        drawLogo();
+    </script>
+    <script>
+        document.getElementById("placeForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            let name = document.getElementById("name").value;
+            let detail = document.getElementById("detail").value;
+            let img = document.getElementById("img").value;
+
+            let card = `
+        <div style="background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,0.08);padding-bottom:10px;">
+            <img src="${img}" style="width:100%;height:160px;object-fit:cover;">
+            <h3 style="color:#B35030;margin:10px;">${name}</h3>
+            <p style="margin:0 10px 10px;font-size:0.95rem;">${detail}</p>
+        </div>
+        `;
+
+            document.getElementById("userPlaces").innerHTML += card;
+            this.reset(); // เคลียร์ข้อมูลหลัง Submit
+        });
+    </script>
+
+</body>
+
+</html>
