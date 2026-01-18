@@ -1,0 +1,50 @@
+/* ===== Header ===== */
+ion-toolbar {
+  --background: #ffffff;
+  --color: #000000;
+  text-align: center;
+}
+
+ion-title {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* ===== Content ===== */
+ion-content {
+  --background: #ffffff;
+}
+
+/* ===== Photo Grid ===== */
+ion-grid {
+  padding: 10px;
+}
+
+ion-col {
+  padding: 5px;
+}
+
+/* รูปภาพ */
+ion-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+}
+
+/* ===== Floating Camera Button ===== */
+ion-fab {
+  margin-bottom: 10px;
+}
+
+ion-fab-button {
+  --background: #1e88ff;
+  --background-activated: #1565c0;
+  --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+ion-fab-button ion-icon {
+  font-size: 24px;
+  color: white;
+}
