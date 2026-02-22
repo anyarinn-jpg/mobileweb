@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lab 08 — Ionic + Firebase AI (Gemini) (Vue)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&family=IBM+Plex+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue: #7c3aed;
+      --light-blue: #ede9fe;
+      --text-dark: #1a0a2e;
+      --text-mid: #3b2060;
+      --accent: #7c3aed;
+      --bg: #f5f0ff;
+      --card-bg: #ffffff;
+      --section-title: #6d28d9;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, #ede9fe 0%, #f3eeff 60%, #fdf4ff 100%);
+      padding: 48px 24px 40px;
+      text-align: center;
+      border-bottom: 1px solid #c4b5fd;
+    }
+
+    .header h1 {
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    .header .student-info {
+      display: inline-block;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--blue);
+      border-bottom: 2px solid var(--blue);
+      padding-bottom: 2px;
+    }
+
+    /* CONTENT */
+    .content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 20px 20px;
+    }
+
+    /* SECTION */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--section-title);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(to right, #7c3aed 0%, transparent 100%);
+    }
+
+    /* IMAGES */
+    .section img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 20px rgba(124,58,237,0.15);
+      display: block;
+    }
+
+    /* GITHUB BUTTON SECTION */
+    .github-section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 8px 20px 56px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn-github {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #1a0a2e;
+      color: #e2e8f0;
+      text-decoration: none;
+      padding: 14px 36px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Sarabun', sans-serif;
+      border: 1.5px solid #7c3aed;
+      box-shadow: 0 4px 20px rgba(124,58,237,0.25);
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+      cursor: pointer;
+    }
+
+    .btn-github:hover {
+      background: #7c3aed;
+      color: #fff;
+      box-shadow: 0 8px 32px rgba(124,58,237,0.45);
+      transform: translateY(-2px);
+    }
+
+    .btn-github svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 28px 20px;
+      font-size: 0.85rem;
+      color: #888;
+      border-top: 1px solid #d8b4fe;
+      background: #f3eeff;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .header { animation: fadeUp 0.5s ease both; }
+    .section { animation: fadeUp 0.5s ease 0.1s both; }
+    .github-section { animation: fadeUp 0.5s ease 0.25s both; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Lab 08 — Ionic + Firebase AI (Gemini) (Vue)</h1>
+    <span class="student-info">นางสาวอัญรินทร์ นิธิโพธิพงศ์ | 673380023-2</span>
+  </div>
+
+  <div class="content">
+    <!-- หน้าแรก -->
+    <div class="section">
+      <div class="section-title">หน้าแรก</div>
+
+      <img src="img/Screenshot 2026-02-22 220134.png" alt="screenshot 1" />
+      <img src="img/Screenshot 2026-02-22 220233.png" alt="screenshot 2" />
+      <img src="img/Screenshot 2026-02-22 220243.png" alt="screenshot 3" />
+      <img src="img/Screenshot 2026-02-22 220803.png" alt="screenshot 4" />
+      <img src="img/Screenshot 2026-02-22 220811.png" alt="screenshot 5" />
+      <img src="img/Screenshot 2026-02-22 220905.png" alt="screenshot 6" />
+      <img src="img/Screenshot 2026-02-22 220917.png" alt="screenshot 7" />
+      <img src="img/Screenshot 2026-02-22 215900.png" alt="screenshot 8" />
+    </div>
+  </div>
+
+  <!-- GITHUB BUTTON -->
+  <div class="github-section">
+    <a href="https://github.com/anyarinn-jpg/mobileweb" target="_blank" class="btn-github">
+      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+      </svg>
+      Source Code บน GitHub
+    </a>
+  </div>
+
+  <footer>
+    &copy; 2026 นางสาวอัญรินทร์ นิธิโพธิพงศ์ &nbsp;|&nbsp; Mobile Web Application Development &nbsp;|&nbsp; Lab 08
+  </footer>
+
+</body>
+</html>
