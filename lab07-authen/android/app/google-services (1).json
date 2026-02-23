@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "707358611735",
+    "project_id": "lab06-expense-f1744",
+    "storage_bucket": "lab06-expense-f1744.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707358611735:android:9825127f46b433d7353f52",
+        "android_client_info": {
+          "package_name": "com.compa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkTJk1NQEUlw3wtmEkEGVs7nX54AayzCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707358611735:android:9a601b0de53d280e353f52",
+        "android_client_info": {
+          "package_name": "cpit.anyarin.lab07"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkTJk1NQEUlw3wtmEkEGVs7nX54AayzCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
